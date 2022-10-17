@@ -1,4 +1,5 @@
 import math
+from re import I
 import pylab as pl
 import TP3_final_node as fn
 import random
@@ -33,7 +34,7 @@ class Perceptron():
                 rand = round(random.uniform(-1, 1), 2)
                 self.final_node.w.append(rand)
         
-        self.error_list = [() for i in range(len(self.w)+ self.n_nodes + 1)]
+        self.w_values_list = [() for i in range(len(self.w)+ self.n_nodes + 1)]
 
         self.start()
 
@@ -42,7 +43,7 @@ class Perceptron():
         for iteration in range(10000):
             print("\n###\nIteration: ", iteration+1, "\n###")
             self.calculate()
-        #self.ploteo()
+        self.ploteo()
 
 
     def set_final_node(self):
@@ -63,8 +64,8 @@ class Perceptron():
                 self.desire_solution = self.table[i][2]
                 #print("SD: ", self.table[i][2])
             
-            
             self.set_final_node()
+            self.w_final_node_value_append(self.final_node.w)
             self.set_backforward_w()
             #a = input("pause")
 
@@ -95,7 +96,21 @@ class Perceptron():
                     woc = (0.1 * self.table[self.count][j-1] * soc) + self.w[count]
                     self.w[count] = woc
                 print("w", count, ": ", self.w[count], "\n")
+                self.w_value_append(self.w[count], count)
                 count += 1
+
+    def w_value_append(self, w_new, count):
+        self.w_values_list[count] = self.w_values_list[count] + (w_new, )
+        
+    def w_final_node_value_append(self, w_new):
+        for i in range(len(self.final_node.w)):
+            self.w_values_list[I] = self.w_values_list[i] + (w_new[i], )
+
+
+    def ploteo(self):
+        for i in range(len(self.w_values_list)):
+            pl.plot(self.w_values_list[i])
+        pl.show()
 
 
 if __name__ == '__main__':
