@@ -137,7 +137,11 @@ class Perceptron():
 
     def subject_set(self):
 
-        
+        #Armar una lista con 7680 elementos y anexarlas a las listas de cada persona, 
+        #seria una lista de 8 listas
+        #despues pasarlos a los nodos, son 7680 por nodo
+        #y comparar la salida, 0 si es persona A y 1 si es persona B
+        #de hecho habria que agergar un valor 7681 que sea 0 o 1 respectivamente
         for i in range(8):
             img=Image.open(self.path + 'Persona' + "0/" + str(i+1) +'A57190.jpg')
             array= np.array(img)
