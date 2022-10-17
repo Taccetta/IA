@@ -30,7 +30,7 @@ class Perceptron():
         for i in range(len(self.input_node_exit)):
             delta_w = (0.1 * self.input_node_exit[i] * delta) + self.w[i+1]
             self.w[i+1] = delta_w
-            print("Aw", i + 1 + self.nodes_attached * 3, ": ", self.w[i+1], "\n")
+            print("w", i + 1 + self.nodes_attached * 3, ": ", self.w[i+1], "\n")
             
         self.delta_f = delta
         self.error = epsilon

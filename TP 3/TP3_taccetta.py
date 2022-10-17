@@ -1,9 +1,8 @@
 import math
-from re import I
 import pylab as pl
 import TP3_final_node as fn
 import random
-import os
+
 
 class Perceptron():
 
@@ -35,6 +34,7 @@ class Perceptron():
                 self.final_node.w.append(rand)
         
         self.w_values_list = [() for i in range(len(self.w)+ self.n_nodes + 1)]
+        self.error_list = [() for i in range(4)]
 
         self.start()
 
@@ -66,12 +66,14 @@ class Perceptron():
             
             self.set_final_node()
             self.w_final_node_value_append(self.final_node.w)
-            self.set_backforward_w()
+            self.set_feedforward_w()
             #a = input("pause")
+            self.error_append()
 
             self.count += 1
             if self.count == 4:
                 self.count = 0
+        
         
         print("Error: ", self.final_node.error)
 
@@ -82,7 +84,7 @@ class Perceptron():
         print("SR: ", self.real_output[self.node_iteration])
 
 
-    def set_backforward_w(self):
+    def set_feedforward_w(self):
         count = 0
         for i in range(self.n_nodes):
             soc = self.real_output[i] * (1 - self.real_output[i]) * self.final_node.delta_f
@@ -103,13 +105,21 @@ class Perceptron():
         self.w_values_list[count] = self.w_values_list[count] + (w_new, )
         
     def w_final_node_value_append(self, w_new):
-        for i in range(len(self.final_node.w)):
-            self.w_values_list[I] = self.w_values_list[i] + (w_new[i], )
+        for i in range(len(w_new)):
+            self.w_values_list[i+len(self.w)] = self.w_values_list[i+len(self.w)] + (w_new[i], )
+        
+    
 
+    def error_append(self):
+        self.error_list[self.count] = self.error_list[self.count] + (self.final_node.error, )
 
     def ploteo(self):
         for i in range(len(self.w_values_list)):
             pl.plot(self.w_values_list[i])
+        pl.show()
+
+        for i in range(len(self.error_list)):
+            pl.plot(self.error_list[i])
         pl.show()
 
 
