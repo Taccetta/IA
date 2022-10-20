@@ -5,6 +5,7 @@ import random
 import numpy as np
 from PIL import Image
 import os
+from itertools import product
 
 
 class Perceptron():
@@ -45,6 +46,10 @@ class Perceptron():
         self.subject_A = [() for i in range(8)]
         self.subject_B = [() for i in range(8)]
 
+        self.image_tuple = []
+
+        self.row = 96
+        self.column = 80
 
         self.start()
 
@@ -145,8 +150,20 @@ class Perceptron():
         for i in range(8):
             img=Image.open(self.path + 'Persona' + "0/" + str(i+1) +'A57190.jpg')
             array= np.array(img)
+            #print(array[0])
+            self.image_tuple = self.convert_to_tuple(array)
             
-            print(len(array[0]))
+
+            
+
+
+    
+    def convert_to_tuple(self, lista):
+        tupleted = ()
+        for i, j in product(range(0, self.row), range(0, self.column)):
+            pixel = (lista[i][j][0] + lista[i][j][1] + lista[i][j][2]) // 3
+            tupleted = tupleted + (pixel,)
+        return tupleted
 
 
 if __name__ == '__main__':
