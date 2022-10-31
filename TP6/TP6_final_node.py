@@ -1,5 +1,6 @@
 import math
 import pylab as pl
+import numpy as np
 
 class Perceptron():
 
@@ -42,9 +43,9 @@ class Perceptron():
         input_sum_x = self.w[0] * self.bias
         for i in range(len(self.w)-1):
             
-            input_sum_x = input_sum_x + self.w[i+1] * en[i]
+            input_sum_x = np.float64(input_sum_x + self.w[i+1] * en[i])
         #print("sum: ", input_sum_x)
-        self.real_output = 1/(1+math.e**-input_sum_x)
+        self.real_output = np.float64(1/(1+np.exp(- input_sum_x)))
         #print("SR: ", self.real_output)
 
 
