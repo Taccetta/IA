@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 import os
 from itertools import product
-from numba import njit
+
 
 
 class Perceptron():
@@ -34,7 +34,7 @@ class Perceptron():
         
         self.node_iteration = 0
         self.count = 0
-        self.RL = 0.01
+        self.RL = 0.5
     
         self.final_node = fn.Perceptron()
         self.final_node.nodes_attached = self.n_nodes
@@ -45,7 +45,7 @@ class Perceptron():
             self.final_node.w.append(rand)
         
         self.w_values_list = [() for i in range(len(self.w)+ self.n_nodes + 1)]
-        self.error_list = [() for i in range(2)]
+        self.error_list = [() for i in range(self.rango)]
 
         self.image_tuple = []
 
@@ -150,7 +150,9 @@ class Perceptron():
     
 
     def error_append(self):
-        self.error_list[self.persona_error] = self.error_list[self.persona_error] + (round(self.final_node.error, 5), )
+        #self.error_list[self.persona_error] = self.error_list[self.persona_error] + (round(self.final_node.error, 5), )
+        self.error_list[self.count] = self.error_list[self.count] + (round(self.final_node.error, 5), )
+
 
     def ploteo(self):
         # for i in range(len(self.w_values_list)):
